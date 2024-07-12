@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1>DAPI</h1>
+    <input type="search" id="searchApi"><br>
+    <p class="message"></p>
+    <div class="content" style="display: flex; justify-content: center;"> 
+    </div>
+    <template class="templateContent">
+       <div style="background-color: white;padding: 1rem;width: auto;max-width: 500px;min-width: 200px;">
+        <span class="id"></span>
+        <figure style="text-align: center;">
+            <h2 class="title"></h2>
+            <img src="" alt="" class="img-fluid">
+        </figure>
+        <div  class="levelAttributeType"  style="display: flex;gap: 2rem;align-items: center;justify-content: center; flex-wrap: wrap;">
+            <div class="level" style="text-align: center;">
+                <h3 class="level">Level</h3>
+                <span class="levelContent"></span>
+            </div>
+            <div class="attribute" style="text-align: center;">
+                <h3>Attributes</h3>
+                <span class="attributeContent"></span>
+            </div>
+            <div class="type" style="text-align: center;">
+                <h3>Type</h3>
+                <span class="typeContent"></span>
+            </div>
+        </div><hr>
+        <div class="fields">
+            <h4 style="text-align: center;">Fields</h4>
+            <div style="display: flex;gap: 5rem;align-items: center;justify-content: center;flex-wrap: wrap;">
+                <div class="fieldOne">
+                    <img src="" alt="">
+                </div>
+                <div class="fieldTwo">
+                    <img src="" alt="">
+                </div>
+                <div class="fieldTres">
+                    <img src="" alt="">
+                </div>
+            </div>
+        </div>
+       </div>
+    </template>
+</body>
+
+<script src="./js/contentSearch.js"></script>
+</html>
+   <div style="display: none;"> <h1>Api - Practice</h1>
+    <section class="results" style="display: flex;flex-wrap: wrap;">
+
+    </section>
+    
+    <img src="./assets/loader.svg" class="display"  alt="">
+    <div style="text-align:center; display: none;">
+        <span data-next="https://pokeapi.co/api/v2/pokemon/" style="text-align: center;  margin-top: 1rem; background: yellow;">NeXt</span>
+    </div></div>
+
+  
+    <script>
+ /*     
+        let $fragment = document.createDocumentFragment();
+        let $dataNext = document.querySelector("[data-next]");
+        let $results = document.querySelector(".results");
+        let $img = document.querySelector("img")
+        function ApiNasa(Api){
+        fetch(`${Api}`)
+        .then(res => res.ok ? res.json() : Promise.reject(res))
+        .then((json) => {
+            console.info(json)            
+                 let $figure = "";
+                 json.results.forEach(element => {
+                    fetch(`${element.url}`)
+                    .then(res => res.ok ? res.json() : Promise.reject(res))
+                    .then(json => { 
+                        let $figure = "";
+                        $figure = `
+                        <figure> 
+                            <img src="${json.sprites ? json.sprites.front_default : ""}">
+                            <span> ${json.name}</span>
+                        </figure>
+                        `
+                        $results.innerHTML += $figure;                     
+                    }).finally(
+                    );
+                });               
+                $dataNext.setAttribute("data-next",json.next);
+                $img.classList.remove("display")       
+        })
+        .catch(error => {
+            alert("error")
+        });
+        }
+
+        $dataNext.addEventListener("click", e =>{
+            ApiNasa($dataNext.getAttribute("data-next"));        
+        })
+        document.addEventListener("DOMContentLoaded", e => {
+            ApiNasa($dataNext.getAttribute("data-next"))
+            ApiNasa($dataNext.getAttribute("data-next"));
+            ApiNasa($dataNext.getAttribute("data-next"))
+        })
+        document.addEventListener("scroll", e => {
+            const {scrollTop, clientHeight, scrollHeight} = document.documentElement;
+            if(scrollTop + clientHeight >= scrollHeight){
+                $img.classList.add("display")
+                ApiNasa($dataNext.getAttribute("data-next"));
+            }
+        })
+
+        */
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>    <script>
+         
+       
+  /*
+        (() => {
+            let xhr = new XMLHttpRequest();
+            let $ul = document.querySelector("ul");
+            let $fragment = document.createDocumentFragment();
+
+            xhr.addEventListener("readystatechange" , (e) => {
+                 //devuelve el estado en  el que se encuentra un cliente xml. 
+                 //4: operacion completada
+                if(xhr.readyState !== 4 ) return;
+
+
+                if(xhr.status >= 200 && xhr.status < 300) {
+                    let json = JSON.parse(xhr.responseText);
+                    console.log(json)
+                    alert("buen hecho")
+
+
+                   
+                        const $li = document.createElement("li");
+                        $li.innerHTML = `${json[0].value}`;
+                        $fragment.appendChild($li)
+                    $ul.appendChild($fragment);
+                }else{
+                }
+            })
+
+                xhr.open("GET" , "https://us-central1-api-dolar.cloudfunctions.net/apiDolar/bcv");
+                xhr.send();
+        })();
+
+    (() => {
+
+        const $fetchAsync = document.querySelector("ul");
+        let $fragment = document.createDocumentFragment();
+
+        async function getData(){
+            try{
+                let respuesta = await fetch("https://dolarapi.com/v1/dolares");
+                let json = await respuesta.json()//devuelve una promesa que proporciona los datos de la peticion http
+
+                //status. contiene el codigo de estado de la peticion. 402 200: numericos
+                //status text: contiene el mensaje de estado correspondiente al código de estado. mensajes textuales
+                //propiedad ok: contiene un valor booleano que indica si la respuesta fue exitosa
+                if(!respuesta.ok) new Error ({status: respuesta.status, statusText: respuesta.statusText})
+
+                let $li = document.createElement("li");
+                $li.innerHTML = `${json[0].compra}`;
+                $fragment.appendChild($li)
+                $fetchAsync.appendChild($fragment);
+
+            }catch(err){
+                let messege = err.statusText || "Ocurrio  un error";
+                $fetchAsync.innerHTML = `Error ${err.status}: ${messege}`
+            }finally{
+                console.log("hello")
+            }
+        }
+        getData()
+    })();
+    
+
+     (() => {
+        const $ul_axios = document.querySelector("ul");
+        let $fragment = document.createDocumentFragment()
+
+        async function getdata(){
+            try{
+                let respuesta  = await axios.get("https://us-central1-api-dolar.cloudfunctions.net/apiDolar/bcv");
+                let json = await respuesta.data;
+
+                console.log(respuesta , json)
+
+                const $li = document.createElement("li");
+                $li.innerHTML = `${json[0].value}`;
+                $fragment.appendChild($li)
+                $ul_axios.appendChild($fragment);
+            }catch{
+
+            }finally{
+                alert("starting")
+            }
+        }
+
+        getdata();
+     })() */
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+</body>
+</html>
